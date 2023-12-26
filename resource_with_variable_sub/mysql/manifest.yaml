@@ -1,0 +1,13 @@
+version: 1.0
+resources:
+  - name: mysql-nested
+    project:
+      name: ${Project}
+    environment:
+      name: ${Environment}
+    template:
+      name: kubernetes-mysql
+      version: v0.1.1
+    attributes:
+      architecture: "standalone"
+      engine_version: "8.0"

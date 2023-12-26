@@ -1,0 +1,8 @@
+version: 1.0
+variables:
+  - name: demo-variable-default
+    project:
+      name: ${PROJECT}
+    environment:
+      name: ${ENVIRONMENT}
+    value: ${IMAGE_DEMO:=nginx}

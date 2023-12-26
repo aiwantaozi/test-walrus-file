@@ -1,0 +1,27 @@
+version: 1.0
+variables:
+  - name: global-var
+    value: nginx
+  - name: project-var
+    project:
+      name: static-project-name
+    value: nginx
+    sensitive: true
+  - name: env-var
+    project:
+      name: static-project-name
+    environment:
+      name: static-env-name
+    value: nginx
+  - name: scope-from-cli
+    project:
+      name: ${Project}
+    environment:
+      name: ${Environment}
+    value: nginx
+  - name: scope-from-env
+    project:
+      name: ${PROJECT}
+    environment:
+      name: ${ENVIRONMENT}
+    value: nginx

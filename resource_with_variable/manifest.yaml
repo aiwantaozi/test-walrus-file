@@ -1,0 +1,40 @@
+version: 1.0
+resources:
+  - name: mysql2
+    type: mysql
+    attributes:
+      architecture: standalone
+      engine_version: "8.0"
+      database: wordpress
+      username: myuser
+      password: ${var.password}
+  - name: wordpress
+    type: k8s-container
+    attributes:
+      containers:
+      - profile: run
+        image: ${var.wordpress-image}
+        resources:
+          cpu: 0.25
+          memory: 256
+        envs:
+        - name: WORDPRESS_DB_HOST
+          value: ${res.mysql2.address}:${res.mysql2.port}
+        - name: WORDPRESS_DB_NAME
+          value: ${res.mysql2.database}
+        - name: WORDPRESS_DB_USER
+          value: ${res.mysql2.username}
+        - name: WORDPRESS_DB_PASSWORD
+          value: ${var.password}
+      deployment:
+        replicas: 2
+variables:
+  - name: wordpress-image
+    project:
+      name: ${Project}
+    value: wordpress:6.3.2-apache
+  - name: password
+    project:
+      name: ${Project}
+    value: ${PASSWORD:?password is required}
+    sensitive: true

@@ -1,0 +1,25 @@
+version: 1.0
+resources:
+  - name: web
+    project:
+      name: ${Project}
+    environment:
+      name: ${Environment}
+    template:
+      name: kubernetes-containerservice
+      version: v0.1.0
+    attributes:
+      containers:
+      - profile: run
+        image: $${var.global-image}
+        resources:
+          cpu: 0.25
+          memory: 256
+        envs:
+        - name: "ADDRESS"
+          value: $${svc.mysql.address}
+      deployment:
+        replicas: 1
+variables:
+  - name: global-image
+    value: nginx

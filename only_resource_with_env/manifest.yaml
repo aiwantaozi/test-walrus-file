@@ -1,0 +1,15 @@
+version: 1.0
+resources:
+  - name: web-with-env
+    template:
+      name: kubernetes-containerservice
+      version: v0.1.0
+    attributes:
+      containers:
+      - profile: run
+        image: ${IMAGE:?image is required}
+        resources:
+          cpu: 0.25
+          memory: 256
+      deployment:
+        replicas: 2

@@ -1,0 +1,21 @@
+version: 1.0
+resources:
+  - name: web3
+    project:
+     name: ${Project}
+    environment:
+     name: ${Environment}
+    template:
+      name: kubernetes-containerservice
+      version: v0.1.0
+      project:
+        name: ${Project}
+    attributes:
+      containers:
+      - profile: run
+        image: ${IMAGE:?image is required}
+        resources:
+          cpu: 0.25
+          memory: 256
+      deployment:
+        replicas: 1

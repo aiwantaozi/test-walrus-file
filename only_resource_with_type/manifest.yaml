@@ -1,0 +1,13 @@
+version: 1.0
+resources:
+  - name: web-resource-with-type
+    type: k8s-container
+    attributes:
+      containers:
+        - profile: run
+          image: nginx
+          resources:
+            cpu: 0.25
+            memory: 256
+      deployment:
+        replicas: 1
